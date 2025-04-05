@@ -17,24 +17,19 @@ import com.example.pants.domain.model.ColorModel
 
 @Composable
 internal fun Previews(
-    modifier: Modifier = Modifier,
     colors: List<ColorModel>,
-    selectedColor: Color,
     animatedColor: Color,
     animatedGradient: Brush,
+    modifier: Modifier = Modifier,
 ) {
     Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = modifier
             .height(IntrinsicSize.Max)
             .padding(horizontal = 8.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        Box() {
-            for (color in List(colors.size) { it }) {
-                ColorBoardPreview(modifier = Modifier.fillMaxHeight(), colors = colors)
-            }
-        }
-        ColorPreview(color = selectedColor, animatedColor = animatedColor, animatedGradient = animatedGradient)
+        ColorBoardPreview(colors = colors, modifier = Modifier.fillMaxHeight())
+        ColorPreview(animatedColor = animatedColor, animatedGradient = animatedGradient)
     }
 }
 
@@ -51,7 +46,7 @@ fun PreviewsPreview() {
 
     Previews(
         modifier = Modifier,
-        selectedColor = Color.Blue,
+//        selectedColor = Color.Blue,
         colors = List(5) { model },
         animatedColor = Color.Yellow,
         animatedGradient = Brush.linearGradient(0f to Color.Yellow,  0.5f to Color.Green,  1f to Color.Blue),

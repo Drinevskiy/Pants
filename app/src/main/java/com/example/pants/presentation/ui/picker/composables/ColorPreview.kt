@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,6 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
@@ -24,17 +26,16 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 internal fun ColorPreview(
-    modifier: Modifier = Modifier,
-    color: Color,
     animatedColor: Color,
     animatedGradient: Brush,
+    modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        ColorDetails(Modifier.weight(1f), animatedColor)
+        ColorDetails(animatedColor)
         ColorBox(animatedGradient)
     }
 }
@@ -46,7 +47,10 @@ private fun ColorBox(animatedGradient: Brush) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(animatedGradient)
+//            .background(animatedGradient)
+            .drawBehind {
+                drawRect(animatedGradient)
+            }
             .onSizeChanged { width = it.width }
             .then(
                 with(LocalDensity.current) {
@@ -60,7 +64,7 @@ private fun ColorBox(animatedGradient: Brush) {
 @Composable
 fun ColorPreviewPreview(){
     ColorPreview(
-        color = Color.Yellow,
+//        color = Color.Yellow,
         animatedColor = Color.Yellow,
         animatedGradient = Brush.linearGradient(0f to Color.Yellow,  0.5f to Color.Green,  1f to Color.Blue),
     )

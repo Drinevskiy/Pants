@@ -22,7 +22,7 @@ import com.example.pants.R
 import com.example.pants.presentation.utils.extension.other.hue
 
 @Composable
-internal fun ColorDetails(modifier: Modifier, color: Color) {
+internal fun ColorDetails(color: Color, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()

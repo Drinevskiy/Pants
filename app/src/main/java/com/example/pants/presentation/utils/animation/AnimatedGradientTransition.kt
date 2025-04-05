@@ -3,6 +3,7 @@ package com.example.pants.presentation.utils.animation
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.InternalAnimationApi
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.runtime.Composable
@@ -16,9 +17,10 @@ import androidx.compose.ui.graphics.Color
 @Composable
 @OptIn(InternalAnimationApi::class)
 fun animatedGradientTransition(color: Color): Pair<Color, Brush> {
+
     val transition = updateTransition(color, label = "color state")
     val animatedColor by transition.animateColor(
-        transitionSpec = { spring(stiffness = Spring.StiffnessVeryLow) },
+        transitionSpec = { spring(stiffness = Spring.StiffnessLow) },
         label = "color preview",
     ) { it }
 
@@ -32,8 +34,8 @@ fun animatedGradientTransition(color: Color): Pair<Color, Brush> {
 
     val animatedGradient = Brush.linearGradient(
         colorStops = colors,
-        start = Offset(0f, Float.POSITIVE_INFINITY),
-        end = Offset(Float.POSITIVE_INFINITY, 0f),
+        start = Offset(Float.POSITIVE_INFINITY, 0f),
+        end = Offset(0f, Float.POSITIVE_INFINITY),
     )
     return Pair(animatedColor, animatedGradient)
 }
