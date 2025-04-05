@@ -11,6 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -33,9 +36,15 @@ internal fun ColorDetails(modifier: Modifier, color: Color) {
 
 @Composable
 internal fun DataPointPresenter(title: String, data: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.semantics(mergeDescendants = true) {
+            contentDescription = "$title: $data"
+        },
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
-            text = title
+            text = title,
+            modifier = Modifier.clearAndSetSemantics {  }
         )
         Text(
             text = data,
@@ -44,6 +53,7 @@ internal fun DataPointPresenter(title: String, data: String) {
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             ),
+            modifier = Modifier.clearAndSetSemantics {  }
         )
     }
 }
