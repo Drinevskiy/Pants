@@ -14,13 +14,37 @@ class ColorRepositoryImpl(
 ) : ColorRepository {
 
     override suspend fun getDistinctRandomColors(count: Int): Result<Set<ColorModel>> = runCatching {
-        apiService.getColor(generateRandomColor(), count * 2, "quad").colors
-            .asSequence()
-            .distinctBy { it.name.value }
-            .filterNot { it.name.value.lowercase() in COMMON_USE_NAMES }
-            .map { it.toColorModel() }
-            .take(count)
-            .toSet()
+        val requiredColors = mutableSetOf<ColorModel>()
+        var attempts = 0
+        val maxAttempts = 3
+
+        while (requiredColors.size < count && attempts < maxAttempts) {
+            val apiResult = apiService.getColor(
+                hsl = generateRandomColor(),
+                count = (count - requiredColors.size) * 2,
+                mode = "quad"
+            ).colors
+
+            val processedColors = apiResult
+                .asSequence()
+                .distinctBy { it.name.value }
+                .filterNot { color -> color.name.value.lowercase() in COMMON_USE_NAMES }
+                .map { it.toColorModel() }
+                .filter { colorModel -> colorModel.saturation > 0.3 && colorModel.value > 0.4 }
+                .toList()
+
+            processedColors.take(count - requiredColors.size).forEach { color ->
+                requiredColors.add(color)
+            }
+
+            attempts++
+        }
+
+        if (requiredColors.size < count) {
+            throw IllegalStateException("Could not fetch enough unique colors after $maxAttempts attempts")
+        }
+
+        requiredColors.toSet()
     }
 
     private companion object {
