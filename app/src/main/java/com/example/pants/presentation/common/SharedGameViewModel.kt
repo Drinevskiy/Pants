@@ -45,13 +45,18 @@ class SharedGameViewModel(
     }
 
     fun saveColor(newHue: Float) {
-        viewModelScope.launch {
-            if (_colorBoard.value.isEmpty()) return@launch
+//        viewModelScope.launch {
+            if (_colorBoard.value.isEmpty()) return
+//            if (_colorBoard.value.isEmpty()) return@launch
             val updatedColors = _colorBoard.value.map {
                 if (it.name == currentColorName.value) it.updateHue(newHue) else it
             }
             _colorBoard.value = updatedColors
-        }
+//        }
+    }
+
+    fun updateColorBoard(board: List<ColorModel>){
+        _colorBoard.value = board
     }
 
     fun updateColorSettings(hue: Float) {
