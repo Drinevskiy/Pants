@@ -35,7 +35,7 @@ fun ColorPickerScreen(viewModel: SharedGameViewModel, onSave: () -> Unit) {
         selectedColor = selectedColor,
         colorName = currentColorName,
         onSaveColor = {
-            viewModel.saveColor(selectedColor.hue)
+            viewModel.saveColor()
             onSave()
         },
         onUpdateColorSettings = viewModel::updateColorSettings,

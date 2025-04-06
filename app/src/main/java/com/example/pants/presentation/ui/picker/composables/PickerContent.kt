@@ -24,18 +24,17 @@ internal fun PickerContent(
     val (animatedColor, animatedGradient) = animatedGradientTransition(selectedColor)
 
     Column(
-        modifier = Modifier.width(IntrinsicSize.Min),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(48.dp),
+        modifier = Modifier.width(IntrinsicSize.Min),
     ) {
         Previews(
-            modifier = Modifier.fillMaxWidth(),
             colors = colors,
-            selectedColor = selectedColor,
             animatedColor = animatedColor,
             animatedGradient = animatedGradient,
+            modifier = Modifier.fillMaxWidth(),
         )
-        HuePicker(hue = selectedColor.hue, animatedColor = animatedColor, onHueChange = onHueChange)
+        HuePicker(hue = { selectedColor.hue }, onHueChange = onHueChange)
     }
 }
 

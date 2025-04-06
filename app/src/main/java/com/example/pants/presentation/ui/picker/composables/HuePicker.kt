@@ -36,13 +36,10 @@ private const val PICKER_WIDTH = 300
 
 @Composable
 fun HuePicker(
-    modifier: Modifier = Modifier,
-    hue: Float,
-    animatedColor: Color,
+    hue: () -> Float,
     onHueChange: (Float) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    onHueChange(hue)
-    val colorHue = animatedColor.hue
     Box(
         modifier = modifier
             .height(40.dp)
@@ -70,7 +67,7 @@ fun HuePicker(
                 .onSizeChanged { cursorWidth = it.width }
                 .then(
                     with(LocalDensity.current) {
-                        Modifier.offset(x = ((hue / 360f) * (PICKER_WIDTH - cursorWidth.toDp().value)).dp)
+                        Modifier.offset(x = ((hue() / 360f) * (PICKER_WIDTH - cursorWidth.toDp().value)).dp)
                     }
                 )
         )

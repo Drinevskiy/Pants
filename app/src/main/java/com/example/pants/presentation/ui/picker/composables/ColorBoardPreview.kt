@@ -20,26 +20,15 @@ import com.example.pants.domain.model.ColorModel
 
 @Composable
 internal fun ColorBoardPreview(
-    modifier: Modifier = Modifier,
     colors: List<ColorModel>,
+    modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier.padding(vertical = 8.dp)
-    ) {
-        colors.forEach {
-            DisplayColorFromBoard(colors)
-        }
-    }
-}
-
-@Composable
-private fun DisplayColorFromBoard(colors: List<ColorModel>) {
-    Column(
-        modifier = Modifier.fillMaxHeight(),
+    Column (
+        modifier = modifier.padding(top = 16.dp),
         verticalArrangement = Arrangement.SpaceBetween,
     ) {
-        colors.forEach { color ->
-            BorderedBox(color)
+        colors.forEach {
+            BorderedBox(it)
         }
     }
 }
