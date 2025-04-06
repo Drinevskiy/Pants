@@ -69,5 +69,11 @@ dependencies {
     implementation(libs.kotlinx.collection)
     implementation(libs.koin.android)
 
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.junit)
+//    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter.api)
+
     debugImplementation(libs.ui.tooling.preview)
 }
