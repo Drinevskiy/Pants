@@ -8,5 +8,5 @@ class GetColorBoardUseCase(
 ) {
 
     suspend operator fun invoke(colorCount: Int): Result<Set<ColorModel>> =
-        colorRepository.getRandomColors(colorCount)
+        colorRepository.getDistinctRandomColors(colorCount)
 }

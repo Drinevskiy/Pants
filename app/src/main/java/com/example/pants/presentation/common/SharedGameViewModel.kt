@@ -64,7 +64,7 @@ class SharedGameViewModel(
         when {
             _colorBoard.value.isEmpty() -> {
                 initColorBoard()
-                return colorBoard.value
+                return _colorBoard.value
             }
 
             checkBoardOrderUseCase(_colorBoard.value) -> {
@@ -81,7 +81,7 @@ class SharedGameViewModel(
     private fun initColorBoard() {
         viewModelScope.launch {
             getColorBoardUseCase(BOARD_SIZE).fold(
-                onSuccess = { _colorBoard.value = it.toPersistentList() },
+                onSuccess = { _colorBoard.value = it.toList() },
                 onFailure = { _errorMessage.emit(it.message.orEmpty()) }
             )
         }
