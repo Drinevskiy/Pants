@@ -73,7 +73,7 @@ class GameFragment : Fragment() {
 
     private fun checkOrderAndChangeView() {
         with(viewBinding) {
-            val colors = viewModel.checkColorOrder(adapter.currentList)
+            val colors = viewModel.checkColorOrder()
             when {
                 colors == null -> {
                     showToast(getString(R.string.success))
