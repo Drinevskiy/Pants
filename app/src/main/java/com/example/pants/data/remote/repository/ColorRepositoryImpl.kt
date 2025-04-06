@@ -1,28 +1,26 @@
 package com.example.pants.data.remote.repository
 
+import android.util.Log
 import com.example.pants.domain.model.ColorModel
 import com.example.pants.domain.repository.ColorRepository
 import com.example.pants.data.utils.generateRandomColor
 import com.example.pants.domain.mapper.toColorModel
 import com.example.pants.data.remote.service.ColorApiService
+import kotlinx.collections.immutable.toImmutableSet
 import java.util.Locale
 
 class ColorRepositoryImpl(
     private val apiService: ColorApiService,
 ) : ColorRepository {
 
-    override suspend fun getRandomColors(count: Int): Result<Set<ColorModel>> = runCatching {
-        val colorList = mutableListOf<ColorModel>()
-
-        while (colorList.size < count) {
-            val color = apiService.getColor(generateRandomColor()).toColorModel()
-            val doesntContainCommon = color.name.lowercase(Locale.getDefault()) !in COMMON_USE_NAMES
-            val isDistinct = color !in colorList
-            if (doesntContainCommon && isDistinct) {
-                colorList.add(color)
-            }
-        }
-        colorList.toSet()
+    override suspend fun getDistinctRandomColors(count: Int): Result<Set<ColorModel>> = runCatching {
+        apiService.getColor(generateRandomColor(), count * 2, "quad").colors
+            .asSequence()
+            .distinctBy { it.name.value }
+            .filterNot { it.name.value.lowercase() in COMMON_USE_NAMES }
+            .map { it.toColorModel() }
+            .take(count)
+            .toSet()
     }
 
     private companion object {

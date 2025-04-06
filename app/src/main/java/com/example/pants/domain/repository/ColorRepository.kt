@@ -4,5 +4,5 @@ import com.example.pants.domain.model.ColorModel
 
 interface ColorRepository {
 
-    suspend fun getRandomColors(count: Int): Result<Set<ColorModel>>
+    suspend fun getDistinctRandomColors(count: Int): Result<Set<ColorModel>>
 }

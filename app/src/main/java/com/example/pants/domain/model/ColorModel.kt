@@ -14,4 +14,8 @@ class ColorModel(
         saturation = saturation,
         value = value,
     )
+
+    override fun toString(): String {
+        return "ColorModel (name = $name, realHue = $realHue, guessHue = $guessHue, saturation = $saturation, value = $value)"
+    }
 }

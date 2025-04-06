@@ -1,5 +1,9 @@
 package com.example.pants.data.dto
 
+data class ColorsListResponse(
+    val colors: List<ColorResponse>
+)
+
 data class ColorResponse(
     val name: Name,
     val hsv: Hsv
