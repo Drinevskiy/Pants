@@ -17,31 +17,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/colorsList"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/colorsLayout"
         android:layout_height="wrap_content"
-        android:foregroundGravity="center"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/btnCheck"
-        app:layout_constraintEnd_toStartOf="@+id/hseGradient"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle"
-        app:layout_constraintVertical_bias="0.5"
-        tools:itemCount="5"
-        tools:listitem="@layout/item_color">
+        app:layout_constraintBottom_toTopOf="@+id/btnCheck"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/colorsList"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_color">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/hseGradient"
-        android:layout_width="60dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/colorsList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/colorsList"
-        app:srcCompat="@drawable/hue_slider_track" />
-
+        </androidx.recyclerview.widget.RecyclerView>
+        <ImageView
+            android:id="@+id/hseGradient"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/hue_slider_track" />
+    </LinearLayout>
     <Button
         android:id="@+id/btnCheck"
         android:layout_width="match_parent"
